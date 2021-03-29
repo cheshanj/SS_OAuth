@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id"
+        content="555382673677-6t26jc8ug2lrrsofa80bmkrv3uo7ujgu.apps.googleusercontent.com">
+    <title>SS SPA with OAuth</title>
+    <link rel="stylesheet" type="text/css" href="/assets/index.css" />
+</head>
+
+<body>
+    <nav class="navigation">
+        <a href="/" class="navigation_link" data-link>Home</a>
+        <a href="/posts" class="navigation_link" data-link>Posts</a>
+        <a href="/about" class="navigation_link" data-link>About</a>
+        <a href="/logout" class="navigation_link_logout" data-link>Logout</a>
+     
+    </nav>
+
+<h1>Welcome back to SS OAuth application, <%= user.name %></h1>
+<img src="<%=user.picture %>" alt="">
+
+    <div id="app"></div>
+    <script type="module" src="/static/js/index.js"></script>
+</body>
+
+</html>
