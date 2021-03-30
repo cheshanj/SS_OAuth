@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/index.css" />
+    <style>
+        body {
+            padding-top: 80px;
+            word-wrap: break-word;
+        }
+    </style>
+    <title>Upload Files to google drive</title>
+</head>
+
+<body>
+
+    <nav class="navigation">
+        <a href="/home" class="navigation_link" data-link>Home</a>
+        <a href="/posts" class="navigation_link" data-link>Posts</a>
+        <a href="/about" class="navigation_link" data-link>About</a>
+        <a href="/logout" class="navigation_link_logout" data-link>Logout</a>
+     
+    </nav>
+
+    <div class="col-sm-6">
+        <div class="well">
+            <h3 class="text-danger">
+                <span class="fa fa-google-plus"></span> Upload File to Google
+                Drive
+            </h3>
+            <% if (success) { %>
+                <div class="alert alert-success alert-dismissible">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close"
+                    >×</a
+                  >
+                  <strong>Success!</strong> Your Image File is Uploaded.
+                </div>
+                <%}%>
+         
+                    <form action="/upload" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="file" class="form-control" name="file" required id="" />
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-block btn-danger">
+                                Upload File
+                            </button>
+                        </div>
+                    </form>
+        </div>
+    </div>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</html>
