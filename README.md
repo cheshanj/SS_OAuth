@@ -31,7 +31,7 @@ To run this project without any trouble, please go through the following steps.
   > npm install
 
 You will install the following dependencies to the project.
-  ```
+```
    "cookie-parser": "^1.4.5",
    "dotenv": "^8.2.0",
    "ejs": "^3.1.6",
@@ -40,15 +40,15 @@ You will install the following dependencies to the project.
    "googleapis": "^39.2.0",
    "multer": "^1.4.2",
    "nodemon": "^2.0.7"
-    ```
+```
 6. Open the `package.json` to check the nodemon script. Check for the following code block, and if that not included in the package file, input the following code and save.
 
-  ```
+```
   "scripts": {
       "dev": "nodemon server.js",
       "start": "node server.js"
     },  
-    ```
+```
 7. The project is set to run on port 4800, but you can change it to any other available port.
 
   - In server.js
