@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="Chorme">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id"
+        content="555382673677-6t26jc8ug2lrrsofa80bmkrv3uo7ujgu.apps.googleusercontent.com">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/login.css" />
+
+    <title>SS OAuth Login</title>
+</head>
+
+<body>
+    <div class="login-form">
+        <form>
+            <h2 class="text-center">Sign in to the SS OAuth</h2>
+            <div class="text-center social-btn">
+                <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                <script>
+                    function onSignIn(googleUser) {
+                        var id_token = googleUser.getAuthResponse().id_token;
+
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', '/login');
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.onload = function () {
+                            console.log('Signed in as: ' + xhr.responseText);
+
+                            if (xhr.responseText == 'success') {
+                                signOut();
+                                location.assign('/home');
+
+                            }
+                        };
+                        xhr.send(JSON.stringify({ token: id_token }));
+                    }
+                </script>
+
+                <a href="#" onclick="signOut();">Sign out</a>
+                <script>
+                    function signOut() {
+                        var auth2 = gapi.auth2.getAuthInstance();
+                        auth2.signOut().then(function () {
+                            console.log('User signed out.');
+                        });
+                    }
+                </script>
+            </div> -->
+            <a href="<%=url%>" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google</a>
+        </form>
+    </div>
+</body>
+
+</html>
