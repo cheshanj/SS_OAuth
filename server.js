@@ -3,12 +3,14 @@ const app = express();
 const multer = require('multer');
 const fs = require("fs");
 const Oauth2Data = require("./credentials.json");
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 var cookieParser = require('cookie-parser')
 var authed = false;
 
 const { OAuth2Client } = require('google-auth-library');
 const { google } = require('googleapis');
+const { response } = require('express');
 const CLIENT_ID = Oauth2Data.web.client_id;
 const CLIENT_SECRET = Oauth2Data.web.client_secret
 const REDIRECT_URL = Oauth2Data.web.redirect_uris[0];
@@ -24,9 +26,11 @@ var Storage = multer.diskStorage({
 
     destination: function (req, res, callback) {
         callback(null, "./images");
+        console.log("log 1");
     },
     filename: function (req, file, callback) {
         callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
+        console.log("log 1");
     },
 
 });
@@ -53,6 +57,7 @@ app.get('/', (req, res) => {
             scope: SCOPES,
         });
         console.log(url);
+        console.log("log 2 not");
         res.render('login', { url: url });
     } else {
 
@@ -75,20 +80,23 @@ app.get('/', (req, res) => {
                 });
             }
         });
+        console.log("log 2 authed load post");
     }
 
-
+    console.log("log 2 tot");
 });
 
 app.get('/home', checkAuthenticated, (req, res) => {
     let user = req.user;
     res.render('index', { user });
+    console.log("log 7");
 
 });
 
 app.get('/posts', checkAuthenticated, (req, res) => {
     let user = req.user;
     res.render('posts', { user });
+    console.log("log 6");
 
 });
 
@@ -126,6 +134,7 @@ app.post("/upload", (req, res) => {
             );
         }
     });
+    console.log("log 5");
 });
 
 app.get("/google/callback", function (req, res) {
@@ -136,28 +145,53 @@ app.get("/google/callback", function (req, res) {
             if (err) {
                 console.log("Error authenticating");
                 console.log(err);
+                console.log("log 4 err");
             } else {
                 console.log("Successfully authenticated");
                 console.log(tokens)
                 client.setCredentials(tokens);
 
+                function onSignIn(client) {
+                    var tokens = client.getAuthResponse().id_token;
+                    console.log("User token is: " + tokens);
+                }
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'https://localhost:4800/tokensignin');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onload = function () {
+                    console.log('Signed in as: ' + xhr.responseText);
+                };
+                xhr.send('token=' + tokens);
+
+              
+
 
                 authed = true;
-                res.redirect("/");
+                res.redirect("/posts");
+                console.log("log 4 suc load posts");
+                console.log("Current Full url is: " + req.protocol + '://' + req.get('host') + req.originalUrl);
             }
         });
     }
+    console.log("log 4 tot");
 });
 
 app.get('*', (req, res) => {
 
     res.render('404');
+    console.log("log 3");
 });
 
 app.post('/login', (req, res) => {
 
-    let token = req.body.token;
-    console.log("User token is: " + token);
+    function onSignIn(googleUser) {
+        var token = googleUser.getAuthResponse().id_token;
+        console.log("User token is: " + token);
+    }
+
+    // let token = req.body.token;
+    // console.log("User token is: " + token);
 
     async function verify() {
         const ticket = await client.verifyIdToken({
@@ -179,12 +213,15 @@ app.post('/login', (req, res) => {
             res.send('success');
 
         }).catch(console.error);
+
+    console.log("log 8");
 });
 
 app.get('/logout', (req, res) => {
 
     res.clearCookie('session-token');
     res.redirect('/login');
+    console.log("log 9");
 });
 
 function checkAuthenticated(req, res, next) {
@@ -206,10 +243,16 @@ function checkAuthenticated(req, res, next) {
         .then(() => {
             req.user = user;
             next();
+            console.log("log 10 verified");
+
         })
         .catch(err => {
             res.redirect('/')
+            console.log("log 10 verification err");
+            console.log("error:: " + err);
+
         })
+    console.log("log 10 tot");
 
 }
 
